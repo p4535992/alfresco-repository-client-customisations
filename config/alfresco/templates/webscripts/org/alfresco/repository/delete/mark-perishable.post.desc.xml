@@ -1,0 +1,11 @@
+<webscript>
+   <shortname>Mark Perishable</shortname>
+   <description>
+      Mark the given node as perishable
+   </description>
+   <url>/sv-theme/delete/markPerishable?nodeRef={nodeRef}</url>
+   <url>/sv-theme/delete/markPerishable?path={path}</url>
+   <url>/slingshot/doclib/action/sv-theme/delete/markPerishable?nodeRef={nodeRef}</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>

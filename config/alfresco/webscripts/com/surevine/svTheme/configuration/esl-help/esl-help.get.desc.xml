@@ -1,0 +1,5 @@
+<webscript>
+	<shortname>SV Theme ESL Help HTML</shortname>
+	<url>/sv-theme/config/esl-help</url>
+	<authentication>user</authentication>
+</webscript>

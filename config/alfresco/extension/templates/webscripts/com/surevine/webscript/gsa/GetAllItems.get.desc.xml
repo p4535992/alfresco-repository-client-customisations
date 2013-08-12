@@ -1,0 +1,6 @@
+<webscript>
+  <shortname>Get All Items</shortname>
+  <description>See ICD for further details</description>
+  <url>/svTheme/retrieval/getAllItems</url>
+  <authentication>user</authentication>
+</webscript>

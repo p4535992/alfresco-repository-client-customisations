@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model name="md:managedDeletion" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+    <description>Model definitions for User profile metadata</description>
+    <author>simonw@surevine.com</author>
+    <version>1.0</version>
+    
+    <imports>
+        <import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d"/>
+        <import uri="http://www.alfresco.org/model/system/1.0" prefix="sys"/>
+        <import uri="http://www.alfresco.org/model/content/1.0" prefix="cm"/>
+    </imports>
+    
+    <namespaces>
+        <namespace uri="http://www.surevine.com/alfresco/model/managedDeletion/1.0" prefix="md"/>
+    </namespaces>
+        
+    <aspects>
+        <aspect name="md:markedForDeletion">
+            <title>Item Marked for Deletion</title>
+            <properties>
+                <!-- 
+                  The date/time this item is due to be archived to a deleted items site.  
+                  The item will be archived shortly after this datetime</default>
+                -->
+                <property name="md:archivalDue">
+                    <title>Deletion Archival Due</title>
+                    <type>d:datetime</type>
+                </property>
+                <property name="md:deletedBy">
+                    <title>Who this Items was Deleted by</title>
+                    <type>d:text</type>
+                </property>
+            </properties>
+        </aspect>
+
+		<!--
+		  This aspect is applied to folders which have had their contents marked for deletion.
+		  Once the folder is empty, then it will be deleted.
+		--> 
+        <aspect name="md:folderMarkedForDeletion">
+            <title>Folder Marked for Deletion</title>
+            <properties>
+                <property name="md:folderDeletedBy">
+                    <title>Who this Folder was Deleted by</title>
+                    <type>d:text</type>
+                </property>
+              </properties>
+        </aspect>
+
+        <aspect name="md:perishable">
+            <title>Item is Perishable</title>
+            <properties>
+                <!-- 
+                  The date/time this item is due to be archived to a deleted items site.  
+                  The item will be archived shortly after this datetime</default>
+                -->
+                <property name="md:perishDue">
+                    <title>When this item should be perished</title>
+                    <type>d:datetime</type>
+                </property>
+                <property name="md:perishabilityApplied">
+                    <title>When this item was made perishable</title>
+                    <type>d:datetime</type>
+                </property>
+                <property name="md:perishRequestedBy">
+                    <title>Who requested that this item be perishable</title>
+                    <type>d:text</type>
+                </property>
+                <!--
+                  The md:perishableReason property contains a code for the reason, rather
+                  than the reason description itself. These codes and their semantics are
+                  defined elsewhere.
+                -->
+                <property name="md:perishReason">
+                    <title>The code for the reason that this item was made perishable</title>
+                    <type>d:text</type>
+                </property>
+            </properties>
+        </aspect>
+        
+        <aspect name="md:validatePerishableReasons">
+        	<title>Validate the perishable reasons definitions</title>
+        </aspect>
+        
+        <aspect name="md:failedToDelete">
+            <title>An attempt to archive this item for deletion purposes failed</title>
+            <properties>
+                <property name="md:failureDate">
+                    <title>Date and time deletion attempt failed</title>
+                    <type>d:datetime</type>
+                </property>
+                <property name="md:failureMessage">
+                    <title>Explanation provided by the system as to why the deletion attempt failed</title>
+                    <type>d:text</type>
+                </property>
+            </properties>
+        </aspect>
+        
+        <aspect name="md:deleted">
+            <title>Item has been Archived to a Deleted Items Site</title>
+            <properties>
+                <property name="md:originalSiteName">
+                    <title>Original Site Name</title>
+                    <type>d:text</type>
+                    <default></default>
+                </property>
+                <property name="md:deletedTimestamp">
+                    <title>When the item was moved to the deleted items site</title>
+                    <type>d:datetime</type>
+                </property>
+            </properties>
+        </aspect>
+    </aspects>
+    
+</model>

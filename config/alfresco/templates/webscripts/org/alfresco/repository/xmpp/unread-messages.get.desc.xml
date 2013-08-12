@@ -1,0 +1,7 @@
+<webscript>
+   <shortname>Retrieves basic details of unread messages for the current user</shortname>
+   <description>Retrieves basic details of unread messages for the current user.  Doesn't return the actual messages themselves, and leaves the messages on the server for later consumption</description>
+   <url>/surevine/xmpp/message-summary</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>

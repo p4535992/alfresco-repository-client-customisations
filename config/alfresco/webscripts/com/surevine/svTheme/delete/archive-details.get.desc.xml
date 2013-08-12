@@ -1,0 +1,8 @@
+<webscript>
+   <shortname>Archive Details</shortname>
+   <description>Returns the details about why a node will be archived (or not)</description>
+   <url>/sv-theme/delete/archive-details?nodeRef={nodeRef}</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+   <transaction>none</transaction>
+</webscript>

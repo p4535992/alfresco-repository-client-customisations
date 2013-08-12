@@ -1,0 +1,11 @@
+<webscript>
+   <shortname>Undelete</shortname>
+   <description>
+      If the given node is deleted, undelete it.  Will throw an error if passed a non-existent item or an item which is not deleted
+   </description>
+   <url>/sv-theme/delete/undelete?nodeRef={nodeRef}</url>
+   <url>/sv-theme/delete/undelete?path={path}</url>
+   <url>/slingshot/doclib/action/sv-theme/delete/undelete?nodeRef={nodeRef}</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>

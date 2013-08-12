@@ -1,0 +1,9 @@
+<webscript>
+   <shortname>Recent Activities</shortname>
+   <description>Displays recently modified Wiki pages, Documents and Discussion Post</description>
+   <url>/sv-theme/activities</url>
+   <url>/sv-theme/{site}/activities</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+   <transaction>required</transaction>
+</webscript>

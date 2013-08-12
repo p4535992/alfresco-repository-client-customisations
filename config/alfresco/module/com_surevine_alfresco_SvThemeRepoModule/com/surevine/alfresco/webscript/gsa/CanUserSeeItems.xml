@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+<!-- 
+    <bean id="com.surevine.alfresco.webscript.gsa.CanUserSeeItems.put" class="com.surevine.alfresco.webscript.gsa.canuserseeitems.CanUserSeeItemsCommandWebscriptImpl" parent="webscript">
+        <property name="canUserSeeItemsComamnd">
+        	<ref bean="com.surevine.alfresco.webscript.gsa.canuserseeitems.CanUserSeeItemsCommand" />
+        </property>
+    </bean>
+
+    <bean id="com.surevine.alfresco.webscript.gsa.canuserseeitems.CanUserSeeItemsCommand" class="com.surevine.alfresco.webscript.gsa.canuserseeitems.CanUserSeeItemsCommandImpl">
+        <property name="nodeService">
+        	<ref bean="nodeService" />
+        </property>
+    </bean>
+-->
+</beans>

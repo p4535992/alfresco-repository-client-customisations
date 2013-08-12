@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+
+	<!--
+		This file defines Spring configuration for the module. Small modules
+		can include their configuration directly, but as module size increases
+		it becomes a better idea to split the spring config up using imports
+		as shown below. This allows you to assemble a module from pluggable
+		components more easily. The path in the config should relate to the
+		package name of the component(s) you are configuring for ease of
+		navigation.
+	-->
+<beans>
+
+	<!--  Import configuration for the HTML sanitisation action -->
+	<import resource="classpath:alfresco/module/com_surevine_alfresco_SvThemeRepoModule/com/surevine/alfresco/repo/HTMLSanitisationAction.xml" />
+	
+	<!-- Import configuration for the GSA Services -->
+	<import resource="classpath:alfresco/module/com_surevine_alfresco_SvThemeRepoModule/com/surevine/alfresco/webscript/gsa/GetAllItems.xml" />
+	<import resource="classpath:alfresco/module/com_surevine_alfresco_SvThemeRepoModule/com/surevine/alfresco/webscript/gsa/CanUserSeeItems.xml" />
+	
+	<!-- Import configuration for the wiki page name cache -->
+	<import resource="classpath:alfresco/module/com_surevine_alfresco_SvThemeRepoModule/com/surevine/alfresco/repo/wiki/WikiPageNameCache.xml" />
+    
+    <!--  Import configuration for the file name normaliser -->
+    <import resource="classpath:alfresco/module/com_surevine_alfresco_SvThemeRepoModule/com/surevine/alfresco/repo/upload/FilenameNormaliser.xml" />
+    
+    <!--  Import configuration for the managed deletion components -->
+    <import resource="classpath:alfresco/module/com_surevine_alfresco_SvThemeRepoModule/com/surevine/alfresco/repo/managedDelete.xml" />
+    
+    <!--  Import configuration for the group removal logic -->
+    <import resource="classpath:alfresco/module/com_surevine_alfresco_SvThemeRepoModule/com/surevine/alfresco/repo/caveat/groupRemovalLogic.xml" />
+    
+    <!--  Import configuration for the XMPP functionality -->
+    <import resource="classpath:alfresco/module/com_surevine_alfresco_SvThemeRepoModule/com/surevine/alfresco/repo/xmpp/xmppIntegration.xml" />
+
+
+	<bean parent="webscripts.formatmap">
+		<property name="formats">
+			<props>
+				<prop key="ico">image/vnd.microsoft.icon</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	<bean id="mimetypeConfigService" class="org.springframework.extensions.config.xml.XMLConfigService"
+		init-method="init">
+		<constructor-arg>
+			<bean class="org.springframework.extensions.config.source.UrlConfigSource">
+				<constructor-arg>
+					<list>
+						<value>classpath:alfresco/mimetype/mimetype-map.xml</value>
+						<value>classpath:alfresco/mimetype/mimetype-map-openoffice.xml</value>
+						<value>classpath:alfresco/mimetype/mimetype-custom-extensions.xml</value>
+					</list>
+				</constructor-arg>
+			</bean>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="com.surevine.alfresco.repo.action.EnhancedSecurityCustomerSpecificValidation" class="com.surevine.alfresco.repo.action.EnhancedSecurityCustomerSpecificValidation"
+        init-method="init">
+        <property name="skipValidationOnAmbiguity">
+            <value>false</value>
+        </property>
+        <property name="policyComponent">
+            <ref bean="policyComponent" />
+        </property>
+        <property name="nodeService">
+            <ref bean="nodeService"/>
+        </property>
+    </bean>
+	
+	<bean id="com.surevine.alfresco.repo.action.PerishableReasonsValidation" class="com.surevine.alfresco.repo.action.PerishableReasonsValidation"
+        init-method="init">
+        <property name="policyComponent">
+            <ref bean="policyComponent" />
+        </property>
+        <property name="nodeService">
+            <ref bean="nodeService"/>
+        </property>
+        <property name="contentService">
+            <ref bean="contentService"/>
+        </property>
+    </bean>
+	
+	<bean id="com_surevine_alfresco_SvThemeRepoModule_bootstrapSpaces"
+		class="org.alfresco.repo.module.ImporterModuleComponent" parent="module.baseComponent">
+		<property name="moduleId" value="com_surevine_alfresco_SvThemeRepoModule" />
+		<property name="name"
+			value="com_surevine_alfresco_SvThemeRepoModule_bootstrapSpaces" />
+		<property name="description" value="Initial data requirements" />
+		<property name="sinceVersion" value="1.3.0" />
+		<property name="appliesFromVersion" value="1.3.0" />
+
+		<!-- Data properties -->
+		<property name="importer" ref="spacesBootstrap" />
+		<property name="bootstrapViews">
+			<list>
+				<props>
+					<prop key="path">/${spaces.company_home.childname}/${spaces.dictionary.childname}</prop>
+					<prop key="location">alfresco/module/com_surevine_alfresco_SvThemeRepoModule/sv_theme.acp</prop>
+				</props>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="com_surevine_alfresco_SvThemeRepoModule_dictionaryBootstrap" parent="dictionaryModelBootstrap" depends-on="dictionaryBootstrap">
+        <property name="models">
+            <list>
+                <value>alfresco/module/com_surevine_alfresco_SvThemeRepoModule/com/surevine/alfresco/model/userProfileModel.xml</value>
+                <value>alfresco/module/com_surevine_alfresco_SvThemeRepoModule/com/surevine/alfresco/model/managedDeletionModel.xml</value>
+            </list>
+        </property>
+    </bean>
+        
+    <!--  LDAP sync object exposed to Javascript API -->
+    <bean id="ldapSyncScript" parent="baseJavaScriptExtension" class="com.surevine.alfresco.repo.profile.LDAPUpdaterScriptNode">
+        <property name="extensionName">
+            <value>ldap</value>
+        </property>
+    </bean>
+    
+    <!-- HTMLSanitiser object exposed to Javascript API -->
+    <bean id="htmlSanitiserScript" parent="baseJavaScriptExtension" class="com.surevine.alfresco.repo.impl.ScriptSanitiser">
+        <property name="extensionName">
+            <value>sanitiser</value>
+        </property>
+    </bean>
+    
+    <!--  XMPP Facilities exposed to Javascript API -->
+    <bean id="xmppScript" parent="baseJavaScriptExtension" class="com.surevine.alfresco.repo.jscript.XMPPScriptService">
+        <property name="extensionName">
+            <value>xmpp</value>
+        </property>
+        <property name="superuserCredentials">
+            <value>@@chat_superuser_password@@</value>
+        </property>
+        <property name="XMPPPresenceService">
+            <ref bean="com.surevine.alfresco.presence.xmpp.XMPPPresenceService"/>
+        </property>
+        <property name="XMPPUnreadMessageService">
+            <ref bean="com.surevine.alfresco.presence.xmpp.XMPPUnreadMessageService"/>
+        </property>
+    </bean>
+    
+    <bean id="filenameNormaliserScript" parent="baseJavaScriptExtension" class="com.surevine.alfresco.repo.upload.ScriptFilenameNormaliser">
+        <property name="implementation">
+            <ref bean="com.surevine.alfresco.repo.upload.FilenameNormaliser"/>
+        </property>
+        <property name="extensionName">
+            <value>fileNameNormaliser</value>
+        </property>
+    </bean>
+    
+    <bean id="repoModule_configBootstrap" class="org.alfresco.web.config.WebClientConfigBootstrap" init-method="init">
+        <property name="configs">
+            <list>
+                <value>classpath:alfresco/module/com_surevine_alfresco_SVThemeRepoModule/web-client-custom.xml</value>
+            </list>
+        </property>
+    </bean>
+    
+	<bean id="com.surevine.alfresco.presence.restTemplate" class="org.springframework.web.client.RestTemplate" />
+	
+	<bean id="com.surevine.alfresco.presence.PresenceService" class="com.surevine.alfresco.presence.xmpp.DefaultPresenceService">
+		<property name="host" value="@@presence.host@@"/>
+		<property name="remoteServiceEnabled" value="@@presence.enableRemoteService@@"/>
+        <property name="XMPPPresenceService">
+            <ref bean="com.surevine.alfresco.presence.xmpp.XMPPPresenceService"/>
+        </property>
+	</bean>
+
+	<!--
+		This is the old method of using an openfire plugin to display presence
+		information. Preserving here in case we want to enable it on site, but
+		by the time this is built we can probably remove it.
+	-->
+	<!-- <bean id="com.surevine.alfresco.presence.PresenceService" class="com.surevine.alfresco.presence.openfire.OpenFireXmlPresenceService">
+		<property name="url" value="@@presence.url@@"/>
+		<property name="host" value="@@presence.host@@"/>
+		<property name="remoteServiceEnabled" value="@@presence.enableRemoteService@@"/>
+		<property name="errorTimeout" value="@@presence.errorTimeout@@"/>
+		<property name="cacheTimeout" value="@@presence.cacheTimeout@@"/>
+		<property name="restOperations" ref="com.surevine.alfresco.presence.restTemplate"/>
+	</bean> -->
+	
+	<bean id="com.surevine.alfresco.presence.PresenceScript" parent="baseJavaScriptExtension" class="com.surevine.alfresco.presence.PresenceScript">
+		<property name="presenceService" ref="com.surevine.alfresco.presence.PresenceService"/>
+		<property name="extensionName" value="presenceService"/>
+	</bean>
+
+</beans>

@@ -1,0 +1,8 @@
+<webscript>
+   <shortname>Perishability Reasons</shortname>
+   <description>Returns the reasons an item can be marked perishable</description>
+   <url>/sv-theme/delete/perishable-reasons?site={site}</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+   <transaction>none</transaction>
+</webscript>

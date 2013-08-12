@@ -1,0 +1,9 @@
+<webscript>
+   <shortname>Set Profile</shortname>
+   <description>
+      Manage the profile of an Alfresco user on an external LDAP store and the internal store at the same time
+   </description>
+   <url>/sv-theme/user-profile/profile</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>

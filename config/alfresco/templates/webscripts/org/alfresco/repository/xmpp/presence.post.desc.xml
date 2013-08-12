@@ -1,0 +1,7 @@
+<webscript>
+   <shortname>Set the current users presence</shortname>
+   <description>Updates the current user's presence</description>
+   <url>/surevine/xmpp/presence</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>

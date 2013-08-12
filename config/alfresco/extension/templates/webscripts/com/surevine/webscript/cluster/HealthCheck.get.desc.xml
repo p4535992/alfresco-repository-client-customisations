@@ -1,0 +1,9 @@
+<webscript>
+   <shortname>Health Check</shortname>
+   <description>
+      Confirms that lucene and the repository are up
+   </description>
+   <url>/cluster/HealthCheck</url>
+   <format default="html">any</format>
+   <authentication>none</authentication>
+</webscript>

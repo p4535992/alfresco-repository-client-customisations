@@ -1,0 +1,335 @@
+<?xml version="1.0"?>
+
+<!-- 
+This build file creates an Alfresco or Share AMP file
+Edit the first three properties and you're away
+
+The default target will create an amp file
+and the "cleanAndApply" target will apply
+that AMP to the target war
+-->
+
+<project name="Surevine Template AMP Build File" default="package" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+	<path id="path.svnant">
+	          <pathelement location="lib/svnant.jar"/>
+	          <pathelement location="lib/svnClientAdapter.jar"/>
+	      </path>
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="path.svnant" />
+	
+	<path id="maven-ant-tasks.classpath" path="lib/maven-ant-tasks-2.1.3.jar" />
+	<typedef resource="org/apache/maven/artifact/ant/antlib.xml"
+	           uri="antlib:org.apache.maven.artifact.ant"
+	           classpathref="maven-ant-tasks.classpath" />
+
+	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpath="lib/findbugs-2.0.2/lib/findbugs-ant.jar" />
+
+	<!-- Pick up environment variables so that the resolution of directories, etc, does not need to be hardcoded. -->
+	<property environment="env" />
+
+	<!-- 
+    The name of the module you are creating.  This must match the directory the module is in 
+    under alfresco/module in the config and source/java directories
+    -->
+	<property name="module.name" value="com_surevine_alfresco_SvThemeRepoModule" />
+
+	<!-- 
+    This should work straight from the SVN in eclipse but it depends exactly how you invoke it
+    -->
+	<property name="project.dir" value=".." />
+
+	<property name="maven.repo.local" value="${user.home}/.m2/repository" />
+
+	<!--
+    Temporary build directory
+    -->
+	<property name="build.dir" value="${basedir}/target" />
+	<property name="testresults.dir" value="${build.dir}/testresults" />
+
+	<property name="config.dir" value="${project.dir}/config" />
+	<property name="jar.file" value="${build.dir}/lib/${module.name}.jar" />
+	<property name="amp.file" value="${build.dir}/${module.name}.amp" />
+
+	<!-- Maven POM file -->
+	<property name="pom.file" value="${project.dir}/pom.xml" />
+
+	<!-- Allow for emma to capture coverage reports -->
+	<property name="coverage.dir" value="${build.dir}/coverage" />
+	<property name="emma.dir" value="lib/emma" />
+	<property name="instrumented.dir" value="${build.dir}/inst/" />
+	<path id="emma.lib">
+		<fileset dir="${emma.dir}/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<taskdef resource="emma_ant.properties" classpathref="emma.lib" />
+
+	<!-- Bring in the pom which defines the dependencies -->
+	<artifact:pom file="${pom.file}" id="pom">
+		<localRepository path="${maven.repo.local}" />
+	</artifact:pom>
+
+	<!-- Now assign the dependencies to a fileset so that they can be referenced -->
+	<artifact:dependencies filesetId="pomdeps" pomRefId="pom">
+		<localRepository path="${maven.repo.local}" />
+	</artifact:dependencies>
+
+	<!-- Root SVN URL for this module -->
+	<property name="svn.url" value="https://svn.surevine.net/integration/alfresco_repository_module/" />
+
+	<!-- SVN Tags URL for this module -->
+	<property name="svn.tags.url" value="${svn.url}tags/" />
+
+	<path id="class.path">
+		<dirset dir="${build.dir}/classes" />
+		<fileset refid="pomdeps" />
+
+		<dirset dir="${project.dir}">
+			<include name="config" />
+		</dirset>
+	</path>
+
+	<!--
+    This doesn't need to depend on clean-java as we're going to delete the
+    whole build directory anyway
+    -->
+	<target name="clean" description="Delete and recreate the build directory">
+		<delete dir="${build.dir}" includeEmptyDirs="true" quiet="yes" />
+	</target>
+
+	<target name="init" description="Creates the top-level dist and lib directories">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/dist" />
+		<mkdir dir="${build.dir}/lib" />
+	</target>
+
+	<property name="svn.hostname" value="https://svn.surevine.net" />
+
+	<target name="test-prepare" depends="replace-repository-properties" description="checks outs dependencies and replaces tokens in repository files">
+		<tstamp />
+	</target>
+
+	<target name="replace-repository-properties" description="Replace tokens found in repository.propeties">
+
+		<pathconvert targetos="unix" property="test-data-directory">
+			<path location="${build.dir}/temp_test_data/" />
+		</pathconvert>
+
+		<copy file="${project.dir}/config/alfresco/repository.properties" tofile="${project.dir}/config/alfresco/repository.properties.bak" overwrite="true" />
+		<copy file="${project.dir}/config/alfresco/repository.properties.test_template" tofile="${project.dir}/config/alfresco/repository.properties" overwrite="true" />
+
+		<replace file="${project.dir}/config/alfresco/repository.properties" token="@@dir.root@@" value="${test-data-directory}/alf_data" />
+		<replace file="${project.dir}/config/alfresco/repository.properties" token="@@lucene.index.location@@" value="${test-data-directory}/lucene/" />
+
+		<replace file="${project.dir}/config/alfresco/repository.properties" token="@@db.name@@" value="${db.schema.unique}" />
+		<replace file="${project.dir}/config/alfresco/repository.properties" token="@@db.username@@" value="${db.username}" />
+		<replace file="${project.dir}/config/alfresco/repository.properties" token="@@db.password@@" value="${db.password}" />
+
+		<replace file="${project.dir}/config/alfresco/repository.properties" token="@@ooo.exe@@" value="${evn.ooo.exe}" />
+		<replace file="${project.dir}/config/alfresco/repository.properties" token="@@img.root@@" value="${evn.img.root.exe}" />
+		<replace file="${project.dir}/config/alfresco/repository.properties" token="@@swf.exe@@" value="${evn.swf.exe}" />
+	</target>
+
+	<target name="test-cleanup" description="Resets files altered after testing (undoes replace-repository-properties)">
+		<move file="${project.dir}/config/alfresco/repository.properties.bak" tofile="${project.dir}/config/alfresco/repository.properties" overwrite="true" />
+	</target>
+
+	<target name="compile" description="Compile Java classes and copy in relevant message bundles">
+		<mkdir dir="${build.dir}/classes" />
+		<javac classpathref="class.path" srcdir="${project.dir}/source/java" destdir="${build.dir}/classes" debug="true" debuglevel="lines,source,vars" />
+
+		<copy todir="${build.dir}/classes">
+			<fileset dir="${project.dir}/source/java" includes="**/*.properties" />
+		</copy>
+	</target>
+
+	<target name="test-compile" depends="compile">
+		<emma enabled="true">
+			<instr instrpath="${build.dir}/classes" destdir="${instrumented.dir}" metadatafile="${coverage.dir}/metadata.emma" merge="true">
+			</instr>
+		</emma>
+	</target>
+
+	<target name="package-jar" depends="compile" description="Jar up the Java components of this module">
+		<jar destfile="${jar.file}">
+			<fileset dir="${build.dir}/classes" includes="**/*" />
+		</jar>
+	</target>
+
+	<target name="package-amp" depends="init, package-jar, test" description="Package the Module">
+		<copy todir="${build.dir}/lib" file="${com.surevine.alfresco:ldap2alfresco:jar}" />
+		<copy todir="${build.dir}/lib" file="${com.surevine.alfresco:alfresco_accounting:jar}" />
+		<copy todir="${build.dir}/lib" file="${com.surevine.alfresco:alfresco_connect_lib:jar}" />
+		<copy todir="${build.dir}/lib" file="${com.surevine.alfresco:gsa-connector:jar}" />
+		<copy todir="${build.dir}/lib" file="${com.surevine.alfresco:alfresco_presence:jar}" />
+		<copy todir="${build.dir}/lib" file="${org.springframework.ws:spring-ws:jar}" />
+		<copy todir="${build.dir}/lib" file="${org.apache.httpcomponents:httpclient:jar}" />
+		<copy todir="${build.dir}/lib" file="${org.apache.httpcomponents:httpcore:jar}" />
+		<copy todir="${build.dir}/lib" file="${org.apache.httpcomponents:httpmime:jar}" />
+		<copy todir="${build.dir}/lib" file="${org.igniterealtime.smack:smack:jar}" />
+		<copy todir="${build.dir}/lib" file="${org.igniterealtime.smack:smackx:jar}" />
+
+		<zip destfile="${amp.file}">
+			<fileset dir="${build.dir}" includes="lib/*.jar" />
+			<zipfileset dir="${build.dir}" includes="classes/org/springframework/**/*" prefix="WEB-INF" />
+			<fileset dir="${project.dir}" includes="config/**/*.*" excludes="**/module.properties" />
+			<fileset dir="${project.dir}/config/alfresco/module/${module.name}" includes="module.properties,file-mapping.properties" />
+			<fileset dir="${project.dir}/source/web" />
+		</zip>
+	</target>
+
+
+	<target name="update-war" depends="package-amp" description="Update the WAR file.">
+		<echo>Installing into WAR</echo>
+		<java dir="." fork="true" classname="org.alfresco.repo.module.tool.ModuleManagementTool">
+			<classpath refid="class.path" />
+			<arg line="install ${amp.file} ${war.file} -force -verbose" />
+		</java>
+		<echo>Installation Finished</echo>
+	</target>
+
+	<target name="package" depends="clean,package-amp" description="Run a clean build and package as an AMP" />
+
+	<target name="install" depends="package">
+		<!-- use the maven ant tasks to install in the local repository -->
+		<artifact:install file="${jar.file}">
+			<pom refid="pom" />
+			<!-- The attach is required so that the amp can be deployed to nexus also, maven doesn't support AMPs OOTB -->
+			<attach file="${amp.file}" type="amp" />
+			<localRepository path="${maven.repo.local}" />
+		</artifact:install>
+	</target>
+
+	<target name="deploy" depends="package">
+		<!-- use the maven ant tasks to deploy to nexus -->
+		<artifact:deploy file="${jar.file}">
+			<pom refid="pom" />
+			<!-- The attach is required so that the amp can be deployed to nexus also, maven doesn't support AMPs OOTB -->
+			<attach file="${amp.file}" type="amp" />
+			<localRepository path="${maven.repo.local}" />
+		</artifact:deploy>
+	</target>
+
+
+	<target name="cleanAndApply" depends="clean, update-war, list-installed-modules" description="Run a clean build and update the given WAR file" />
+
+	<target name="list-installed-modules" depends="" description="List the modules installed in the WAR file to confirm succesful application">
+		<echo>Listing installed modules of ${war.file}</echo>
+		<java dir="../source" fork="true" classname="org.alfresco.repo.module.tool.ModuleManagementTool">
+			<classpath refid="class.path" />
+			<arg line="list ${war.file}" />
+		</java>
+	</target>
+
+	<path id="test.class.path">
+		<pathelement location="${instrumented.dir}" />
+		<pathelement location="${build.dir}/classes" />
+		<path refid="emma.lib">
+		</path>
+		<fileset refid="pomdeps" />
+		<pathelement location="../config" />
+		<pathelement location="../config/alfresco/module/com_surevine_alfresco_SvThemeRepoModule" />
+	</path>
+
+	<target name="test" depends="test-compile, test-prepare">
+
+		<mkdir dir="${testresults.dir}" />
+
+		<junit fork="true" haltonerror="true" failureproperty="tests.failures" errorproperty="tests.errors" includeantruntime="true" showoutput="true" printsummary="true">
+			<syspropertyset>
+				<propertyref builtin="all" />
+			</syspropertyset>
+			<sysproperty key="dir.root" value="${env.HOME}/alf_data" />
+			<sysproperty key="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect" />
+			<sysproperty key="db.url" value="jdbc:mysql://localhost/alfresco?useUnicode=yes&amp;characterEncoding=UTF-8" />
+			<sysproperty key="db.driver" value="org.gjt.mm.mysql.Driver" />
+			<classpath refid="test.class.path" />
+			<jvmarg value="-Demma.coverage.out.file=${coverage.dir}/coverage.emma" />
+			<jvmarg value="-Demma.coverage.out.merge=true" />
+			<formatter type="xml" />
+			<!--<formatter type="plain" useFile="false"/>-->
+
+			<batchtest fork="yes" todir="${testresults.dir}">
+				<fileset dir="${project.dir}/source/java">
+					<exclude name="**/AlfrescoHTMLSanitiserTest.java" />
+					<exclude name="**/SiteNameBasedManagedDeletionServiceTest.java" />
+					<exclude name="**/CanUserSeeItemAlfrescoWebscriptTest.java" />
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+
+		<antcall target="test-cleanup" />
+		
+		<fail message="tests failed" if="tests.failures" />
+		<fail message="tests error" if="tests.errors" />
+
+	</target>
+
+	<target name="verify" depends="coverage-report, checkstyle-report, findbugs-report"/>
+	
+	
+	<target name="coverage-report" depends="test">
+		<emma enabled="true">
+			<report sourcepath="${src.dir}">
+				<infileset dir="${coverage.dir}">
+					<include name="*.emma" />
+				</infileset>
+
+				<xml outfile="${coverage.dir}/coverage.xml" depth="method" />
+			</report>
+		</emma>
+	</target>
+
+	<taskdef resource="checkstyletask.properties" />
+
+	<target name="checkstyle-report">
+		<exec dir="${basedir}" executable="svn">
+			<arg line="export https://svn.surevine.net/surevine/tech/imp/common/src/main/resources/checkstyle ${build.dir}/surevine_checks" />
+		</exec>
+
+		<checkstyle config="${build.dir}/surevine_checks/surevine_checks.xml">
+			<fileset dir="${project.dir}/source/java" includes="**/*.java" />
+			<formatter type="plain" />
+			<formatter type="xml" toFile="${build.dir}/checkstyle-result.xml" />
+		</checkstyle>
+
+		<!-- Now tidy up -->
+		<delete dir="${build.dir}/surevine_checks" />
+	</target>
+	
+<!--	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/> -->
+	<property name="findbugs.home" value="${user.home}/tools/findbugs"/>
+	
+	<target name="findbugs-report" depends="package-jar">
+		 <findbugs home="${findbugs.home}" output="xml" outputFile="${build.dir}/findbugs-result.xml" >
+		      <class location="${jar.file}" />
+		    </findbugs>
+	</target>
+
+	<!-- Tag for release -->
+	<target name="release">
+		<echo>Updating local pom.xml...</echo>
+		<replaceregexp file="${pom.file}" match="&lt;version&gt;.*&lt;/version&gt;" replace="&lt;version&gt;${env.VERSION_NUMBER_RELEASE}&lt;/version&gt;" />
+		<echo>Committing tag into ${svn.tags.url}${env.VERSION_NUMBER_RELEASE}</echo>
+		<exec executable="svn" failonerror="true">
+			<arg value="copy" />
+			<arg value="${project.dir}" />
+			<arg value="${svn.tags.url}${env.VERSION_NUMBER_RELEASE}" />
+			<arg value="-m" />
+			<arg value="Tagging for ${env.VERSION_NUMBER_RELEASE} release" />
+		</exec>
+		<echo>Building and publishing version ${env.VERSION_NUMBER_RELEASE}</echo>
+		<antcall target="deploy" />
+		<echo>Updating local pom.xml...</echo>
+		<replaceregexp file="${pom.file}" match="&lt;version&gt;.*&lt;/version&gt;" replace="&lt;version&gt;${env.VERSION_NUMBER_NEW}&lt;/version&gt;" />
+		<echo>Committing into trunk...</echo>
+		<exec executable="svn" failonerror="true">
+			<arg value="commit" />
+			<arg value="${project.dir}" />
+			<arg value="-m" />
+			<arg value="Updating version number to ${env.VERSION_NUMBER_NEW} following ${env.VERSION_NUMBER_RELEASE} release" />
+		</exec>
+	</target>
+
+</project>

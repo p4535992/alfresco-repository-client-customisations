@@ -1,0 +1,9 @@
+<webscript>
+   <shortname>Visibility Count</shortname>
+   <description>
+      Manage the profile of a user, synchronising changes with a master user profile store
+   </description>
+   <url>/sv-theme/user-profile/profile</url>
+   <format default="html">any</format>
+   <authentication>user</authentication>
+</webscript>

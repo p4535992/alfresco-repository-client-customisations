@@ -1,0 +1,9 @@
+<webscript>
+   <shortname>Visibility Count</shortname>
+   <description>
+      Clear the internally held profile of an Alfresco user, without reference to an external profile store
+   </description>
+   <url>/sv-theme/user-profile/internal-profile/clear</url>
+   <format default="json">any</format>
+   <authentication>admin</authentication>
+</webscript>

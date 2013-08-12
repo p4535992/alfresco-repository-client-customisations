@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Note that we've assumed it's acceptable for lists of values to require an admin to update a model inside Alfresco explorer
+whenever they change.
+-->
+
+<model name="up:userProfile" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+    <description>Model definitions for User profile metadata</description>
+    <author>simonw@surevine.com</author>
+    <version>1.0</version>
+    
+    <imports>
+        <import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d"/>
+        <import uri="http://www.alfresco.org/model/system/1.0" prefix="sys"/>
+    </imports>
+    
+    <namespaces>
+        <namespace uri="http://www.surevine.com/alfresco/model/userProfile/1.0" prefix="up"/>
+    </namespaces>
+        
+    <aspects>
+        <aspect name="up:hasUserProfile">
+            <title>User Profile</title>
+            <properties>
+                <property name="up:biography">
+                    <title>Biography</title>
+                    <type>d:text</type>
+                    <default>This user has not yet specified a biography</default>
+                </property>
+                <property name="up:askMeAbouts">
+                    <title>Ask Me About</title>
+                    <type>d:text</type>
+                    <multiple>true</multiple>
+                    <default></default>
+                </property>
+                <property name="up:telephoneNumbers"> <!--  number,network,ext(optional) -->
+                    <title>Telephone Numbers</title>
+                    <type>d:text</type>
+                    <multiple>true</multiple>
+                    <constraints>
+                        <constraint type="REGEX">
+                            <parameter name="expression"><value>[0-9 *()+#]+,[A-Z0-9\- ]+,[0-9 *()+#]*</value></parameter>
+                            <parameter name="requiresMatch"><value>true</value></parameter>
+                        </constraint>
+                    </constraints>
+                </property>
+                <property name="up:lastModified">
+                    <title>Last Modified</title>
+                    <type>d:datetime</type>
+                </property>
+            </properties>
+        </aspect>
+    </aspects>
+    
+</model>

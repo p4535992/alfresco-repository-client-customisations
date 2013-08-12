@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webscript>
+  <shortname>CanUserSeeItems WebScript Service</shortname>
+  <description>CanUserSeeItems - returns a list of noderefs that the give user can see</description>
+  <url>/svTheme/retrieval/canUserSeeItems</url>
+  <authentication>user</authentication>
+</webscript>

@@ -1,0 +1,5 @@
+<webscript>
+	<shortname>SV Theme General Configuration</shortname>
+	<url>/sv-theme/config/general</url>
+	<authentication>user</authentication>
+</webscript>

@@ -1,0 +1,9 @@
+<webscript>
+   <shortname>Visibility Count</shortname>
+   <description>
+      Manage the profile of an Alfresco user on an external LDAP store, without changing the internal store
+   </description>
+   <url>/sv-theme/user-profile/ldap-profile</url>
+   <format default="json">any</format>
+   <authentication>admin</authentication>
+</webscript>

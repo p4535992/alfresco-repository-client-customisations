@@ -1,0 +1,7 @@
+<webscript>
+   <shortname>Visibility Report</shortname>
+   <description>Reports on the detail of why a user can or cannot view a certain marking</description>
+   <url>/api/enhanced-security/visibility-report</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>

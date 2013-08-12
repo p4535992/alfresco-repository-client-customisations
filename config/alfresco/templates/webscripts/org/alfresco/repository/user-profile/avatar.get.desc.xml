@@ -1,0 +1,9 @@
+<webscript>
+   <shortname>Set Avatar</shortname>
+   <description>
+      Retrieve the avatar of a given user
+   </description>
+   <url>/sv-theme/user-profile/avatar?user={user}</url>
+   <format default="html">any</format>
+   <authentication>user</authentication>
+</webscript>

@@ -1,0 +1,8 @@
+<webscript>
+   <shortname>Security Model</shortname>
+   <description>Retrieves an Alfresco custom model file describing the security model as it is in LDAP</description>
+   <url>/surevine/security-model</url>
+   <format default="xml">any</format>
+   <authentication>admin</authentication>
+   <transaction>none</transaction>
+</webscript>

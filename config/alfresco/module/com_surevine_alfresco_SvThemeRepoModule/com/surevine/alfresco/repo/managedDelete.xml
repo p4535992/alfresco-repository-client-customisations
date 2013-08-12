@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+
+    <bean id="com.surevine.alfresco.repo.action.delete.OnDeleteCleanVersionHistoryBehaviour" class="com.surevine.alfresco.repo.action.delete.OnDeleteCleanVersionHistoryBehaviour" init-method="init">
+        <property name="policyComponent">
+            <ref bean="policyComponent"/>
+        </property>
+        <property name="nodeService">
+            <ref bean="nodeService" />
+        </property>
+        <property name="versionService">
+            <ref bean="versionService" />
+        </property>
+        <property name="archiveService">
+            <ref bean="nodeArchiveService"/>
+        </property>
+    </bean>
+
+    <bean id="com.surevine.alfresco.repo.action.MoveAsSuperuserAction" class="com.surevine.alfresco.repo.action.MoveAsSuperuserAction" parent="action-executer">
+        <property name="copyService">
+            <ref bean="com.surevine.alfresco.repo.action.SafeMoveCopyService" />
+        </property>
+        <property name="fileFolderService">
+            <ref bean="fileFolderService" />
+        </property>
+        <property name="nodeService">
+            <ref bean="nodeService" />
+        </property>
+        <property name="transactionService">
+            <ref bean="transactionService" />
+        </property>
+        <property name="publicAction"> <!--  No UI in alfresco explorer, so hide this action -->
+            <value>false</value>
+        </property>
+        <property name="policyFilter">
+            <ref bean="policyBehaviourFilter" />
+        </property>
+        
+    </bean>
+    
+    <bean id="com.surevine.alfresco.repo.action.SafeMoveCopyService" class="com.surevine.alfresco.repo.action.SafeMoveCopyServiceImpl" init-method="init">
+        <property name="dictionaryService">
+            <ref bean="dictionaryService" />
+        </property>
+        <property name="nodeService">
+            <ref bean="NodeService" />
+        </property>
+        <property name="policyComponent">
+            <ref bean="policyComponent" />
+        </property>
+        <property name="ruleService">
+            <ref bean="ruleService" />
+        </property>
+        <property name="permissionService">
+            <ref bean="permissionService" />
+        </property>
+         <property name="publicServiceAccessService">
+            <ref bean="publicServiceAccessService" />
+        </property>
+        <property name="searchService">
+            <ref bean="ADMSearchService" />
+        </property>
+        <property name="internalNodeService">
+            <ref bean="mlAwareNodeService" />
+        </property>
+    </bean>
+
+    <bean id="com.surevine.alfresco.repo.action.delete.DeleteAction" class="com.surevine.alfresco.repo.action.delete.DeleteAction" parent="action-executer">
+        <property name="managedDeletionService">
+            <ref bean="com.surevine.alfresco.repo.delete.ManagedDeletionService" />
+        </property>
+        <property name="runAsUser">
+            <value>admin</value>
+        </property>
+        <property name="policyFilter">
+            <ref bean="policyBehaviourFilter" />
+        </property>
+    </bean>
+
+    <bean id="com.surevine.alfresco.repo.action.delete.DestroyAction" class="com.surevine.alfresco.repo.action.delete.DestroyAction" parent="action-executer">
+        <property name="managedDeletionService">
+            <ref bean="com.surevine.alfresco.repo.delete.ManagedDeletionService" />
+        </property>
+        <property name="policyFilter">
+            <ref bean="policyBehaviourFilter" />
+        </property>
+    </bean>
+    
+    <bean id="com.surevine.alfresco.repo.action.delete.MarkForDeleteAction" class="com.surevine.alfresco.repo.action.delete.MarkForDeleteAction" parent="action-executer">
+        <property name="managedDeletionService">
+            <ref bean="com.surevine.alfresco.repo.delete.ManagedDeletionService" />
+        </property>
+    </bean>
+    
+    <bean id="com.surevine.alfresco.repo.action.MarkForPerishableValidationAction"
+    		class="com.surevine.alfresco.repo.action.MarkForPerishableValidationAction" parent="action-executer">
+        <property name="nodeService">
+            <ref bean="nodeService" />
+        </property>
+    </bean>
+    
+     <bean id="com.surevine.alfresco.repo.action.delete.RemoveDeleteMarkAction" class="com.surevine.alfresco.repo.action.delete.RemoveDeleteMarkAction" parent="action-executer">
+        <property name="managedDeletionService">
+            <ref bean="com.surevine.alfresco.repo.delete.ManagedDeletionService" />
+        </property>
+    </bean>
+    
+    <bean id="com.surevine.alfresco.repo.action.delete.UndeleteAction" class="com.surevine.alfresco.repo.action.delete.UndeleteAction" parent="action-executer">
+        <property name="managedDeletionService">
+            <ref bean="com.surevine.alfresco.repo.delete.ManagedDeletionService" />
+        </property>
+    </bean>
+    
+    <bean id="com.surevine.alfresco.repo.action.GrantEveryoneDeletePermissionsAction" class="com.surevine.alfresco.repo.action.GrantEveryoneDeletePermissionsAction" parent="action-executer">
+        <property name="permissionService">
+            <ref bean="permissionService" />
+        </property>
+        <property name="nodeService">
+            <ref bean="nodeService" />
+        </property>
+        <property name="transactionService">
+            <ref bean="transactionService" />
+        </property>
+    </bean>
+    
+    <bean id="com.surevine.alfresco.repo.action.DeletePermissionsBehaviour" class="com.surevine.alfresco.repo.action.DeletePermissionsBehaviour" init-method="init">
+        <property name="nodeService">
+            <ref bean="nodeService" />
+        </property>
+        <property name="permissionService">
+            <ref bean="permissionService" />
+        </property>
+        <property name="policyComponent">
+            <ref bean="policyComponent" />
+        </property>
+        <property name="modelDAO">
+            <ref bean="permissionsModelDAO" />
+        </property>
+        <property name="permissionsDaoComponent">
+            <ref bean="permissionsDaoComponent" />
+        </property>
+        <property name="tenantService">
+            <ref bean="tenantService"/>
+        </property>
+        <property name="transactionService">
+            <ref bean="transactionService" />
+        </property>
+    </bean>
+    
+    <bean id="com.surevine.alfresco.repo.delete.ManagedDeletionService" class="com.surevine.alfresco.repo.delete.SiteNameBasedManagedDeletionService">
+        <property name="nodeService">
+            <ref bean="nodeService" />
+        </property>
+        <property name="nodeFinder">
+            <ref bean="com.surevine.alfresco.repo.NodeFinder" />
+        </property>
+        <property name="fileFolderService">
+            <ref bean="fileFolderService" />
+        </property>
+        <property name="policyFilter">
+            <ref bean="policyBehaviourFilter" />
+        </property>
+        <property name="deletionWindowInSeconds">
+            <value>604800</value> <!--  1 week -->
+        </property>
+        <property name="deletedItemsSiteNamePostfix">
+            <value>deletedItems</value>
+        </property>
+        <property name="lockService">
+          <ref bean="LockService"/>
+        </property>
+	    <property name="perishabilityLogic">
+	    	<ref bean="com.surevine.alfresco.repo.delete.PerishabilityLogic" />
+	    </property>
+        <property name="transactionService">
+            <ref bean="transactionService" />
+        </property>
+        <property name="versionService">
+            <ref bean="versionService" />
+        </property>
+    </bean>
+    
+    <bean id="com.surevine.alfresco.repo.NodeFinder" class="com.surevine.alfresco.repo.NodeFinder">
+        <property name="searchService">
+            <ref bean="searchService"/>
+        </property>
+        <property name="nodeService">
+            <ref bean="nodeService"/>
+        </property>
+    </bean>
+ 
+	<bean id="com.surevine.alfresco.repo.delete.PerishabilityLogic" class="com.surevine.alfresco.repo.delete.PerishabilityLogicImpl" init-method="init">
+        <property name="searchService">
+        	<ref bean="searchService" />
+        </property>
+        <property name="contentService">
+        	<ref bean="contentService" />
+        </property>
+        <property name="transactionService">
+        	<ref bean="transactionService" />
+        </property>
+	</bean>
+ 
+ 
+	<bean id="com.surevine.alfresco.repo.delete.FolderMarkedForDeleteBehaviours" class="com.surevine.alfresco.repo.delete.FolderMarkedForDeleteBehaviours" init-method="init" depends-on="dictionaryBootstrap, com_surevine_alfresco_SvThemeRepoModule_dictionaryBootstrap">
+        <property name="policyComponent">
+        	<ref bean="policyComponent" />
+        </property>
+        <property name="managedDeletionService">
+        	<ref bean="com.surevine.alfresco.repo.delete.ManagedDeletionService" />
+        </property>
+	</bean>
+	
+	<bean id="com.surevine.alfresco.repo.delete.ScriptManagedDeletionService" parent="baseJavaScriptExtension" class="com.surevine.alfresco.repo.delete.ScriptManagedDeletionService">
+	    <property name="extensionName">
+	        <value>managedDeletion</value>
+	    </property>
+	    <property name="delegate">
+	    	<ref bean="com.surevine.alfresco.repo.delete.ManagedDeletionService" />
+	    </property>
+	    <property name="perishabilityLogic">
+	    	<ref bean="com.surevine.alfresco.repo.delete.PerishabilityLogic" />
+	    </property>
+	</bean>
+	    
+    <bean id="webscript.com.surevine.alfresco.webscript.perishable.perishable.get" 
+        class="com.surevine.alfresco.webscript.perishable.PerishableWebscript"
+        parent="webscript" init-method="init">
+        <property name="nodeService">
+            <ref bean="nodeService"/>
+        </property>
+        <property name="searchService">
+            <ref bean="searchService"/>
+        </property>
+        <property name="personService">
+            <ref bean="PersonService"/>
+        </property>
+        <property name="preferenceService">
+            <ref bean="preferenceService"/>
+        </property>
+        <property name="presenceService">
+            <ref bean="com.surevine.alfresco.presence.PresenceService"/>
+        </property>
+        <property name="managedDeletionService">
+        	<ref bean="com.surevine.alfresco.repo.delete.ManagedDeletionService" />
+        </property>
+        <property name="serviceRegistry" ref="ServiceRegistry"/>
+    </bean>
+	
+</beans>

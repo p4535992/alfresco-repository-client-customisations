@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+This file is used to overrise or extend the "web-client-config.xml" file.
+-->
+
+<alfresco-config>
+
+    <!-- 
+    Add the aspect defined in our custom model to the Action Wizards 
+    list of actions.  Note that as we haven't set replace='true' on
+    the config element these changes will be additive, otherwise they would
+    replace the OOB definition of Action Wizards
+    -->
+     <config evaluator="string-compare" condition="Action Wizards">
+        <aspects>
+            <aspect name="psg:groups"/> <!-- Note that we _don't_ need to import the sv namespace here -->
+        </aspects>
+    </config>
+</alfresco-config>

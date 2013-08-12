@@ -1,0 +1,11 @@
+<webscript>
+   <shortname>Immediate Archive</shortname>
+   <description>
+      Immediatley archive the given node, if it has been marked for deletion
+   </description>
+   <url>/sv-theme/delete/archive?nodeRef={nodeRef}</url>
+   <url>/sv-theme/delete/archive?path={path}</url>
+   <url>/slingshot/doclib/action/sv-theme/delete/archive?nodeRef={nodeRef}</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>

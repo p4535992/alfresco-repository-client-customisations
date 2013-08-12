@@ -1,0 +1,11 @@
+Configuration files for modules.
+
+Create a directory for each module in this project (usually just one)
+of the form 'alfresco.module.[module name]' and place configuration
+information in that directory.
+
+This will ensure that your configuration files end up in the right place 
+on the classpath and do not clash with those of other modules when the 
+AMP is applied to your target WAR.
+
+Look in each directory here for further information on the structure of the config directory.

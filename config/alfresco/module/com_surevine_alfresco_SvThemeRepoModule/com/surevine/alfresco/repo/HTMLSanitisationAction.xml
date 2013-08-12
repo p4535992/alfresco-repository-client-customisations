@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+    <bean id="com.surevine.alfresco.repo.action.SanitiseHTMLAction" class="com.surevine.alfresco.repo.action.SanitiseHTMLAction" parent="action-executer">
+        <property name="HTMLIdentifierFactory">
+            <ref bean="com.surevine.alfresco.repo.HTMLIdentifierFactory" />
+        </property>
+        <property name="HTMLSanitiser">
+            <ref bean="com.surevine.alfresco.repo.HTMLSanitiser" />
+        </property>
+        <property name="contentService">
+        	<ref bean="contentService" />
+        </property>
+        <property name="nodeService">
+        	<ref bean="nodeService" />
+        </property>
+    </bean>
+    
+    <bean id="com.surevine.alfresco.repo.HTMLIdentifierFactory" class="com.surevine.alfresco.repo.impl.FilenameAndContentHTMLIdentifierFactory">
+    	<property name="contentService">
+        	<ref bean="contentService" />
+        </property>
+        <property name="nodeService">
+        	<ref bean="nodeService" />
+        </property>
+        <property name="HTMLExtensions">
+        	<list>
+        	   <value>htm</value>
+        	   <value>html</value>
+        	   <value>shtm</value>
+        	   <value>htx</value>
+        	   <value>htw</value>
+        	</list>
+        </property>
+        <property name="HTMLContent">
+        	<list>
+        	   <value>html</value>
+        	   <value>script</value>
+        	</list>
+        </property>
+        <property name="maxCharsToSearch">
+        	<value>102400</value>
+        </property>
+    </bean>
+    
+	<bean id="com.surevine.alfresco.repo.HTMLSanitiser" class="com.surevine.alfresco.repo.impl.AlfrescoHTMLSanitiser">
+    </bean>
+    
+</beans>

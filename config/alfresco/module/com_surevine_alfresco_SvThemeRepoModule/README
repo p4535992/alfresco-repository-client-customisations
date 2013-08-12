@@ -1,0 +1,29 @@
+This is the module config directory
+
+It should contain:
+
+module.properties:			Metadata on this module.  Read the inline comments
+							therein for more information.
+
+file-mapping.properties: 	Defines the mapping between AMP and WAR. There 
+							should be no need to change the file provided
+
+module-context.xml:			Spring configuration for this module.
+
+bootstrap-context.xml:		If required, bootstrap context for this module.
+							If present, it will be included by module-context.xml.
+							You might use the bootstrap to load a custom model,
+							to load a custom web client config, or for other reasons
+
+web-client-custom.xml:		If required, custom web client configuration.  If present,
+							it will be bootstrapped into the web client by 
+							bootsrap-context.xml.
+
+log4j.properties:			Logging configuration for this module
+
+
+Configuration, for module components should be placed in a subdirectory of this 
+directory corresponding to the package name of the class being configured.  These
+files may then be included by module-context.xml (for Spring configuration).  Custom
+models should be placed in a "model" subdirectory of the appropriate component package.
+All spring configuration files should end -context.xml.

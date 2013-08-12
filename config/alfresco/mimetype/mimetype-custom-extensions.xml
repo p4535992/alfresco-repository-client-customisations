@@ -1,0 +1,11 @@
+<alfresco-config area="mimetype-map">
+	<config evaluator="string-compare" condition="Mimetype Map">
+		<mimetypes>
+
+			<mimetype mimetype="image/vnd.microsoft.icon" display="Icon File">
+				<extension default="true">ico</extension>
+			</mimetype>
+			
+		</mimetypes>
+	</config>
+</alfresco-config>

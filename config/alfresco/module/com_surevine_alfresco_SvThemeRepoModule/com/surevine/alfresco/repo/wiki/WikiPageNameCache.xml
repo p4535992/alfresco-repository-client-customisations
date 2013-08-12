@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+
+    <bean id="com.surevine.alfresco.repo.wiki.WikiPageCollection" class="com.surevine.alfresco.repo.wiki.PersistentCachingWikiPageCollection">
+        <property name="cacheExpiryTime">
+            <value>3600000</value> <!--  1 hour -->
+        </property>
+        <property name="cachePopulationUser">
+            <value>admin</value>
+        </property>
+        <property name="searchService">
+            <ref bean="searchService" />
+        </property>
+        <property name="nodeService">
+            <ref bean="nodeService" />
+        </property>
+        <property name="caveatService">
+            <ref bean="caveatConfigService" />
+        </property>
+    </bean>
+    
+    <!-- Wiki Page Name Cache object exposed to Javascript API -->
+    <bean id="wikiPageCollectionScript" parent="baseJavaScriptExtension" class="com.surevine.alfresco.repo.wiki.ScriptCachingWikiPageCollection">
+        <property name="implementation">
+            <ref bean="com.surevine.alfresco.repo.wiki.WikiPageCollection"/>
+        </property>
+        <property name="extensionName">
+            <value>wikiPageNames</value>
+        </property>
+    </bean>
+    
+</beans>

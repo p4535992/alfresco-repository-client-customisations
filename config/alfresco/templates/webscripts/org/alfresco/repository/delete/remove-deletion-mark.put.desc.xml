@@ -1,0 +1,11 @@
+<webscript>
+   <shortname>Remove Deletion Mark</shortname>
+   <description>
+      If the given node has a deletion mark, remove it
+   </description>
+   <url>/sv-theme/delete/removeDeletionMark?nodeRef={nodeRef}</url>
+   <url>/sv-theme/delete/removeDeletionMark?path={path}</url>
+   <url>/slingshot/doclib/action/sv-theme/delete/removeDeletionMark?nodeRef={nodeRef}</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>

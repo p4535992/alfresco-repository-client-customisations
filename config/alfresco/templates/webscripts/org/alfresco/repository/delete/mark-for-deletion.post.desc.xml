@@ -1,0 +1,11 @@
+<webscript>
+   <shortname>Mark for Deletion</shortname>
+   <description>
+      Mark the given node for deletion
+   </description>
+   <url>/sv-theme/delete/markForDelete?nodeRef={nodeRef}</url>
+   <url>/sv-theme/delete/markForDelete?path={path}</url>
+   <url>/slingshot/doclib/action/sv-theme/delete/markForDelete?nodeRef={nodeRef}</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>

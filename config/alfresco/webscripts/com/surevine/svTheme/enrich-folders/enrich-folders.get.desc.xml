@@ -1,0 +1,6 @@
+<webscript>
+    <shortname>Enrich Folder Metadata</shortname>
+    <url>/sv-theme/enrich-folders?folders={folderRefs}</url>
+    <authentication>user</authentication>
+    <format default="json">any</format>   
+</webscript>

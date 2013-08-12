@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+
+    <bean id="com_surevine_alfresco_SvThemeRepoModule_Group_Removal_dictionaryBootstrap" parent="dictionaryModelBootstrap" depends-on="dictionaryBootstrap">
+        <property name="models">
+            <list>
+                <value>alfresco/module/com_surevine_alfresco_SvThemeRepoModule/com/surevine/alfresco/model/previousSecurityGroupsModel.xml</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <bean id="com.surevine.alfresco.repo.action.EnhancedSecurityModelGroupRemovalBehaviour" class="com.surevine.alfresco.repo.action.EnhancedSecurityModelGroupRemovalBehaviour"
+        init-method="init">
+        <property name="policyComponent">
+            <ref bean="policyComponent" />
+        </property>
+        <property name="nodeService">
+            <ref bean="nodeService"/>
+        </property>
+        <property name="contentService">
+            <ref bean="contentService"/>
+        </property>
+    </bean>
+    
+</beans>

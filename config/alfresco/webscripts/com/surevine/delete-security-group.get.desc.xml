@@ -1,0 +1,8 @@
+<webscript>
+   <shortname>Delete Security Group</shortname>
+   <description>HTML form for testing the delete-security-group webscript</description>
+   <url>/surevine/delete-security-group</url>
+   <format default="html">any</format>
+   <authentication>admin</authentication>
+   <transaction>none</transaction>
+</webscript>

@@ -1,0 +1,8 @@
+<webscript>
+	<shortname>Perishable Items</shortname>
+	<description>Displays perishable Documents and Discussion Post</description>
+	<url>/sv-theme/perishable</url>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>none</transaction>
+</webscript>

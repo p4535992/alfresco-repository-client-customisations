@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+<!-- 
+    <bean id="com.surevine.alfresco.webscript.gsa.getallitems.GetAllItemsCommand-POJO" class="com.surevine.alfresco.webscript.gsa.getallitems.GetAllItemsCommandImpl">
+        <property name="searchService">
+            <ref bean="searchService" />
+        </property>
+        <property name="GSANodePropertyService">
+            <ref bean="com.surevine.alfresco.webscript.gsa.getallitems.GSANodePropertyService" />
+        </property>
+        <property name="hardMaxResultsLimit">
+            <value>1000</value>
+        </property>
+        <property name="softMaxResultsSizeLimitInBytes">
+            <value>5242880</value>
+        </property>
+    </bean>
+    
+    <bean id="webscript.com.surevine.alfresco.webscript.gsa.GetAllItems.get" 
+        class="com.surevine.alfresco.webscript.gsa.getallitems.GetAllItemsCommandWebscriptImpl"
+        parent="webscript">
+        <property name="command">
+            <ref bean="com.surevine.alfresco.webscript.gsa.getallitems.GetAllItemsCommand-POJO"/>
+        </property>
+    </bean>
+    
+    <bean id="com.surevine.alfresco.webscript.gsa.getallitems.GSANodePropertyService" class="com.surevine.alfresco.webscript.gsa.getallitems.GSANodePropertyServiceImpl">
+        <property name="nodeService">
+            <ref bean="nodeService" />
+        </property>
+        <property name="contentService">
+            <ref bean="contentService" />
+        </property>
+    </bean>
+    -->
+</beans>

@@ -1,0 +1,9 @@
+<webscript>
+   <shortname>Move Item Safely</shortname>
+   <description>
+      Move an item with superuser privileges
+   </description>
+   <url>/slingshot/doclib/action/safe-move-to/node/{store_type}/{store_id}/{id}</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>

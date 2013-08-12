@@ -1,0 +1,5 @@
+<webscript>
+	<shortname>SV Theme MOTD Dashlet Configuration</shortname>
+	<url>/sv-theme/config/motd-dashlet</url>
+	<authentication>user</authentication>
+</webscript>

@@ -1,0 +1,5 @@
+<webscript>
+	<shortname>SV Theme User Dashboard Configuration</shortname>
+	<url>/sv-theme/config/user-dashboard</url>
+	<authentication>user</authentication>
+</webscript>

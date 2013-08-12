@@ -1,0 +1,10 @@
+<webscript>
+   <shortname>Get tag NodeRefs</shortname>
+   <description>
+    Returns the node refs of the specified list of tags.  If a given tag does not exist, creates it and then returns the nodeRef.
+    Tags are comma seperated in the "tagNames" param
+   </description>
+   <url>/svtheme/tags/nodeRefs</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>

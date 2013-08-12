@@ -1,0 +1,7 @@
+<webscript>
+   <shortname>Retrieve presence</shortname>
+   <description>Retrieves presence information for the current user, specific user, or a group of users</description>
+   <url>/surevine/xmpp/presence</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>

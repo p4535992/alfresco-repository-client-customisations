@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model name="psg:previousSecurityGroups" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+	<description>Model definitions for previous security groups
+	</description>
+	<author>simonw@surevine.com</author>
+	<version>1.0</version>
+
+	<imports>
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+		<import uri="http://www.alfresco.org/model/system/1.0" prefix="sys" />
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+	</imports>
+
+	<namespaces>
+		<namespace
+			uri="http://www.surevine.com/alfresco/model/previousSecurityGroups/1.0"
+			prefix="psg" />
+	</namespaces>
+
+	<aspects>
+		<aspect name="psg:groups">
+			<title>Previous Security Groups</title>
+			<properties>
+				<property name="psg:previousValues">
+					<title>Previous Groups</title>
+					<type>d:text</type>
+				</property>
+
+				<property name="psg:deleteAuthorised">
+					<title>Deletion Authorised Groups</title>
+					<type>d:text</type>
+					<multiple>true</multiple>
+				</property>
+
+			</properties>
+		</aspect>
+	</aspects>
+</model>

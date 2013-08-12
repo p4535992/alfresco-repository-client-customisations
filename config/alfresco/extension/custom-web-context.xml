@@ -1,0 +1,7 @@
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+<beans>
+    <!--
+        This file activates custom configuration as it is parsed last from the web-application-context.xml
+    -->
+    <import resource="classpath*:com/surevine/alfresco/audit/sv-accounting-audit-context.xml"/>
+</beans>

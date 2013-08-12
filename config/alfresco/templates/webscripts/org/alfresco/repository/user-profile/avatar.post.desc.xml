@@ -1,0 +1,9 @@
+<webscript>
+   <shortname>Set Avatar</shortname>
+   <description>
+      Update the avatar of a given user
+   </description>
+   <url>/sv-theme/user-profile/avatar?user={user}</url>
+   <format default="json">any</format>
+   <authentication>user</authentication>
+</webscript>
