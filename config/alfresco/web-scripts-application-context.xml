@@ -1109,4 +1109,8 @@
             <ref bean="searchService"/>
         </property>
     </bean>  
+        <bean id="webscript.com.surevine.webscript.cluster.WaitAndRespond.get" 
+        class="com.surevine.alfresco.webscript.cluster.WaitAndRespondWebscript"
+        parent="webscript">
+    </bean>  
 </beans>

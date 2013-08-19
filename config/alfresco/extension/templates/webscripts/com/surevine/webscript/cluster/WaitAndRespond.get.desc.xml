@@ -1,0 +1,9 @@
+<webscript>
+   <shortname>Wait and Respond</shortname>
+   <description>
+		Test/debugging webscript.  Only intended for use at the direction of Surevine support
+   </description>
+   <url>/cluster/WaitAndRespond</url>
+   <format default="html">any</format>
+   <authentication>none</authentication>
+</webscript>
