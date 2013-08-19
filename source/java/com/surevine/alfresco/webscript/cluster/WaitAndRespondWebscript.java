@@ -34,7 +34,7 @@ public class WaitAndRespondWebscript  extends AbstractWebScript {
 	}
 	
 	public int getNumberOfConcurrentRequests() {
-		return getNumberOfConcurrentRequests();
+		return NUMBER_OF_CONCURRENT_REQUESTS;
 	}
 
 	@Override
