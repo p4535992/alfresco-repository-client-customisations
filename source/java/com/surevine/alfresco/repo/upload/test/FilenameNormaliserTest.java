@@ -73,7 +73,7 @@ public class FilenameNormaliserTest {
 	@Test
 	public void extendedASCIIForbidden()
 	{
-		// TODO These characters aren't being mapped properly in UTF-8 under maven 3.  Can we use characters that are?
+		// These characters aren't being mapped properly in UTF-8 under maven 3.  Can we use characters that are?
 		preserved("test���~��", "test");
 		removed("test���~��", "�");
 		removed("test���~��", "�");

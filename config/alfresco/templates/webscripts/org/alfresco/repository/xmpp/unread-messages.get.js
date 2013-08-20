@@ -42,7 +42,7 @@ logger.log('Found a header: '+headers.get(i));
         }
         else {
         	
-            var thisUser = header.getJid().substring(0, header.getJid().indexOf("@")); //TODO: remove everything after the @
+            var thisUser = header.getJid().substring(0, header.getJid().indexOf("@")); //The user name is everything before the @ (which splits username and domain)
             logger.log('user '+thisUser);
             if (scriptMessageHeaders[thisUser]) {
                     scriptMessageHeaders[thisUser]++;

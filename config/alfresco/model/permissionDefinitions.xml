@@ -228,8 +228,6 @@
          <requiredPermission on="node" name="_DeleteChildren" implies="false"/>
          -->
          <!-- Remove the recursive check for now for performance -->
-         <!-- TODO: have one permission to check for delete on an item and one to check  -->
-         <!--       child permissions when delete is called on the node service          --> 
          <!--  <requiredPermission on="children" name="_DeleteNode" implies="false"/>     -->
       </permission>
       

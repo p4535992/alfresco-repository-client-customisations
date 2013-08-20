@@ -46,7 +46,7 @@ function getMarkingFromArgs(args)
 
 /**
  * Find out who can see items marked with a specified list of constraints and values
- * @TODO If a user doesn't have any values for any of the constraints passed into this function, this function
+ * If a user doesn't have any values for any of the constraints passed into this function, this function
  * will not include the user in it's results.  This isn't likely to be a problem given how we intend to call this 
  * function, but we may need to revisit it in future.
  * @param markingDetails Array of constraints and constraint values as per the output of a call to getMarkingFromArgs
@@ -297,8 +297,7 @@ function valueIsInList(value, list)
 }
 
 /**
- * TODO:  Should use the ScriptConstraint logic to get the matchLogic when we can change the java source but have to  
- * put this horrible hack in for now
+ * Note this is presently hard-coded.  In future, we should get this from the model
  */
 function isAndLogic(constraint)
 {

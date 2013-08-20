@@ -236,8 +236,6 @@ public class SafeMoveCopyServiceImpl implements CopyService
 
         if (sourceNodeRef.getStoreRef().equals(targetParentRef.getStoreRef()) == false)
         {
-            // TODO We need to create a new node in the other store with the same id as the source
-
             // Error - since at the moment we do not support cross store copying
             throw new UnsupportedOperationException("Copying nodes across stores is not currently supported.");
         }

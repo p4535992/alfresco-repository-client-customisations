@@ -1083,66 +1083,6 @@ public class ManagedDeletionServiceTest {
 		assertFalse("The delete operation shouldn't fail", _nodeService.hasAspect(file, ManagedDeletionModel.ASPECT_FAILED_TO_DELETE));
 	}
 
-	@Test
-	@Ignore	// TODO Fix this test
-	public void testDeleteDoesntRemoveParentFolderIfMarkedForDeleteAndNotEmptyAfterDelete() {
-		// +++ Given
-		// We have a folder
-		NodeRef folder = new NodeRef("store:///1");
-		_nodeService.setType(folder, ContentModel.TYPE_FOLDER);
-		
-		// And it contains a file
-		NodeRef file = new NodeRef("store:///2");
-		_nodeService.addChild(folder, file, ContentModel.ASSOC_CONTAINS, null);
-		
-		// And it contains another file
-		NodeRef file2 = new NodeRef("store:///3");
-		_nodeService.addChild(folder, file2, ContentModel.ASSOC_CONTAINS, null);
-
-		// And the folder is marked for delete
-		_mds.markForDelete(folder);
-
-		// +++ When
-		// We delete the first file
-		_mds.delete(file);
-
-		// +++ Then
-		// The folder is not destroyed
-		verify(_nodeService, times(0)).deleteNode(folder);
-		
-		assertFalse("The delete operation shouldn't fail", _nodeService.hasAspect(file, ManagedDeletionModel.ASPECT_FAILED_TO_DELETE));
-	}
-	
-	@Test
-	@Ignore	// TODO Fix this test
-	public void testDeleteDoesntRemoveParentFolderIfNotMarkedForDelete() {
-		
-		// +++ Given
-		// We have a folder
-		NodeRef folder = new NodeRef("store:///1");
-		_nodeService.setType(folder, ContentModel.TYPE_FOLDER);
-		
-		// And a file inside the folder
-		NodeRef file = new NodeRef("store:///2");
-		_nodeService.addChild(folder, file, ContentModel.ASSOC_CONTAINS, null);
-
-		// And the folder is not marked for delete
-		_mds.removeDeletionMark(folder);
-
-		// And the file is marked for delete
-		_mds.markForDelete(file);
-
-		// +++ When
-		// We delete the file
-		_mds.delete(file);
-
-		// +++ Then
-		// The folder is destroyed
-		verify(_nodeService, times(0)).deleteNode(folder);
-		
-		assertFalse("The delete operation shouldn't fail", _nodeService.hasAspect(file, ManagedDeletionModel.ASPECT_FAILED_TO_DELETE));
-	}
-
 	@SuppressWarnings({ "serial" })
 	@Test
 	public void testUndeleteOnFolderUndeletesContents() throws Exception {

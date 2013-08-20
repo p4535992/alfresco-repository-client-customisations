@@ -185,10 +185,8 @@ public class PerishableWebscript extends DeclarativeWebScript implements
 				item.put("archiveDue", archiveDetails.archivalDue());
 				item.put("explanations", explanations);
 
-				// Warning: Slight Hack - for some reason node.children[] on the
-				// ScriptNode isn't working, so we'll get the interesting child
-				// node manually. I say some reason, it's actually because
-				// Context.getContext() is returning null (for some reason!).
+				// For an unknown reason node.children[] is returning null so we get the information using
+				// the longer syntax
 				if (_nodeService.getType(nodeRef).equals(ForumModel.TYPE_TOPIC)) {
 					List<ChildAssociationRef> postAssocRefs = _nodeService
 							.getChildAssocs(nodeRef,
@@ -196,8 +194,7 @@ public class PerishableWebscript extends DeclarativeWebScript implements
 									RegexQNamePattern.MATCH_ALL);
 
 					if (postAssocRefs.isEmpty()) {
-						// This really shouldn't happen, but let's not get our
-						// knickers in a twist if it does.
+						// This really shouldn't happen, but if it does, handle it cleanly
 						_logger.warn("Topic node without any posts: " + nodeRef);
 						continue;
 					}

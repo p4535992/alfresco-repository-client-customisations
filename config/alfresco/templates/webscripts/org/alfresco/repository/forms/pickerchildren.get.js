@@ -185,7 +185,6 @@ function main()
       {
          var catAspect = (args["aspect"] != null) ? args["aspect"] : "cm:generalclassifiable";
 
-         // TODO: Better way of finding this
          var rootCategories = classification.getRootCategories(catAspect);
          if (rootCategories != null && rootCategories.length > 0)
          {
