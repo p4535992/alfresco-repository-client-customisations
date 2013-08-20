@@ -1,14 +1,24 @@
-/**
- * Search Component
+/*
+ * Copyright (C) 2008-2010 Surevine Limited.
+ *   
+ * Although intended for deployment and use alongside Alfresco this module should
+ * be considered 'Not a Contribution' as defined in Alfresco'sstandard contribution agreement, see
+ * http://www.alfresco.org/resource/AlfrescoContributionAgreementv2.pdf
  * 
- * Takes the following object as Input: params { siteId: the site identifier to
- * search into, null for all sites containerId: the component the search in,
- * null for all components in the site term: search terms tag: search tag query:
- * advanced search query json sort: sort parameter maxResults: maximum results
- * to return };
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
  * 
- * Outputs: items - Array of objects containing the search results
- */
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 const DEFAULT_MAX_RESULTS = 250;
 const SITES_SPACE_QNAME_PATH = "/app:company_home/st:sites/";
 const USERS_QNAME_PATH = "/sys:system/sys:people/";
