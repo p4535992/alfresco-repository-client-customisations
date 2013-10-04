@@ -646,7 +646,13 @@ function processResults(nodes, maxResults)
    {
 	   try
 	   {
-		  if (qNameLooksLikePerson(nodes[i])) // Use unusual processing for people
+		  if (qNamelooksLikeAvatar(nodes[i])) { //If it looks like we've found an avatar, instead use the person the avatar is for
+			  logger.log("Processing avatar");
+			  item = getPerson(nodes[i].parent);
+			  results.push(item);
+			  added++;
+		  }
+		  else if (qNameLooksLikePerson(nodes[i])) // Use unusual processing for people
 		  {
 			  logger.log("Processing person");
 			  item = getPerson(nodes[i]);
@@ -691,6 +697,10 @@ function processResults(nodes, maxResults)
 function qNameLooksLikePerson(node)
 {
 	return (node.qnamePath.indexOf(USERS_QNAME_PATH)!=-1 && node.qnamePath.indexOf(NOT_USER_QNAME_PATH_FRAGMENT)==-1);
+}
+
+function qNamelooksLikeAvatar(node) {
+	return qNameLooksLikePerson(node) && qNameLooksLikePerson(node.parent)
 }
 
 function getPerson(personNode)
