@@ -20,14 +20,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 var users = argsM['users'];
-logger.log("UsersA: "+users);
 
 if (!users || users==null || users=="" || users==[]) {
         users=[];
         users.push(person.properties.userName);
 }
-
-logger.log("UsersB: "+users);
 
 var presences = [];
 for each (user in users) {
