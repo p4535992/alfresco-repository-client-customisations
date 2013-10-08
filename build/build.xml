@@ -136,7 +136,7 @@ that AMP to the target war
 
 	<target name="compile" description="Compile Java classes and copy in relevant message bundles">
 		<mkdir dir="${build.dir}/classes" />
-		<javac classpathref="class.path" srcdir="${project.dir}/source/java" destdir="${build.dir}/classes" debug="true" debuglevel="lines,source,vars" />
+		<javac classpathref="class.path" srcdir="${project.dir}/source/java" destdir="${build.dir}/classes" debug="true" debuglevel="lines,source,vars" source="1.6" target="1.6"/>
 
 		<copy todir="${build.dir}/classes">
 			<fileset dir="${project.dir}/source/java" includes="**/*.properties" />

@@ -325,6 +325,13 @@ public class SiteNameBasedManagedDeletionService implements ManagedDeletionServi
 				throw new ManagedDeletionLockException(nodeRef, "Could not delete "+nodeRef+" as the node was locked", nle);
 			}
 			
+			// If this is a working copy, we won't attempt deletion.
+			if (_nodeService.hasAspect(nodeRef, ContentModel.ASPECT_WORKING_COPY)) {
+				_logger.warn("Could not delete " +nodeRef +" as the node is a working copy of a locked node.");
+				throw new ManagedDeletionLockException(nodeRef,
+						"Could not delete " +nodeRef +" as the node is a working copy of a locked node.", null);
+			}
+			
 			try
 			{
 				_lockService.lock(nodeRef, LockType.WRITE_LOCK);
