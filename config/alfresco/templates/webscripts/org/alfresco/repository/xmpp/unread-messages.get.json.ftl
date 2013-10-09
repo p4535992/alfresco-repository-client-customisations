@@ -1,4 +1,4 @@
-<!--
+<#--
     Copyright (C) 2008-2010 Surevine Limited.
       
     Although intended for deployment and use alongside Alfresco this module should
