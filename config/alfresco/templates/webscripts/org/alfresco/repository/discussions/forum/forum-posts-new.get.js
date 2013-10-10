@@ -1,3 +1,8 @@
+<import resource="classpath:alfresco/templates/webscripts/org/alfresco/repository/requestutils.lib.js">
+<import resource="classpath:alfresco/templates/webscripts/org/alfresco/repository/searchutils.lib.js">
+<import resource="classpath:alfresco/templates/webscripts/org/alfresco/repository/generic-paged-results.lib.js">
+<import resource="classpath:alfresco/templates/webscripts/org/alfresco/repository/discussions/topicpost.lib.js">
+
 /*
  * Copyright (C) 2008-2010 Surevine Limited.
  *   
@@ -19,10 +24,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-<import resource="classpath:alfresco/templates/webscripts/org/alfresco/repository/requestutils.lib.js">
-<import resource="classpath:alfresco/templates/webscripts/org/alfresco/repository/searchutils.lib.js">
-<import resource="classpath:alfresco/templates/webscripts/org/alfresco/repository/generic-paged-results.lib.js">
-<import resource="classpath:alfresco/templates/webscripts/org/alfresco/repository/discussions/topicpost.lib.js">
 
 const DEFAULT_NUM_DAYS = 30;
 

@@ -1,3 +1,5 @@
+<import resource="classpath:/alfresco/templates/webscripts/org/alfresco/slingshot/wiki/lib/wiki.lib.js">
+
 /*
  * Copyright (C) 2008-2010 Surevine Limited.
  *   
@@ -19,7 +21,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-<import resource="classpath:/alfresco/templates/webscripts/org/alfresco/slingshot/wiki/lib/wiki.lib.js">
+
 /**
  * Renames a wiki page. Updates the name of the current page
  * and creates a link with the previous name that points to the page;
