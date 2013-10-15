@@ -1129,8 +1129,20 @@
         <property name="searchService">
             <ref bean="searchService"/>
         </property>
-    </bean>  
-        <bean id="webscript.com.surevine.webscript.cluster.WaitAndRespond.get" 
+    </bean>
+    
+    <bean id="webscript.com.surevine.webscript.mis.ListDocumentsByGroup.get" 
+        class="com.surevine.alfresco.webscript.mis.ListDocumentsByGroupWebscript"
+        parent="webscript">
+        <property name="nodeService">
+            <ref bean="nodeService"/>
+        </property>
+        <property name="siteService">
+            <ref bean="siteService"/>
+        </property>
+    </bean>
+    
+    <bean id="webscript.com.surevine.webscript.cluster.WaitAndRespond.get" 
         class="com.surevine.alfresco.webscript.cluster.WaitAndRespondWebscript"
         parent="webscript">
     </bean>  

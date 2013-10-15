@@ -2,3 +2,4 @@
 .settings/org.eclipse.core.resources.prefs
 build/target/
 config/alfresco/repository.properties.bak
+target/
