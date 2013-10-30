@@ -33,6 +33,7 @@
     </bean>
     
     <bean id="com.surevine.alfresco.presence.xmpp.XMPPConnectionProvider" class="com.surevine.alfresco.presence.xmpp.XMPPConnectionProviderImpl" depends-on="com.surevine.alfresco.presence.xmpp.XMPPConfiguration">
+    	<property name="resource"><value>Smack-Space-@@HOST_ID@@</value></property>
     </bean>
 
 	<bean id="com.surevine.alfresco.presence.xmpp.XMPPPresenceService"
