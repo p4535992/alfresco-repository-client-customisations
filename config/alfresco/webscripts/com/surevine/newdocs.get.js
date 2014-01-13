@@ -106,7 +106,7 @@ if (siteName!=null)
 
 var query = "+PATH:\"/app:company_home"+sitePart+"//*\" +@cm\\:modified:["+fromQuery+"T00\\:00\\:00 TO " 
             + toQuery + "T23\\:59\\:59]"
-            +" -TYPE:\"fm:topic\" -TYPE:\"cm:folder\" -TYPE:\"cm:thumbnail\" -TYPE:\"act:compositeaction\" -TYPE:\"act:action\" -TYPE:\"cm:failedThumbnail\"";
+            +" -TYPE:\"fm:topic\" -TYPE:\"cm:folder\" -TYPE:\"cm:thumbnail\" -TYPE:\"act:compositeaction\" -TYPE:\"act:action\" -TYPE:\"cm:failedThumbnail\" -ASPECT:\"md:deleted\"";
 
 logger.log("Starting Newdocs query: " + query);
 var nodes = search.luceneSearch(query, "@cm:modified", false);
