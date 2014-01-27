@@ -58,7 +58,7 @@ if (personNode.assocs && personNode.assocs["cm:avatar"]) {
 }
 
 //If an avatar has been set for the user, use that
-if (!avatar) {
+if (avatar != null) {
 	status.code = 302; 
 	status.location = "/alfresco/wcservice/api/node/"+avatar.nodeRef.toString().replaceAll("://","/")+"/content/thumbnails/"+stringUtils.urlEncode(size)+"?c=force";
 } else { // avatar is null, so redirect to a profile image for the organisation, if one is set
