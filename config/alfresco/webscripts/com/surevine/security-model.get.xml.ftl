@@ -99,12 +99,12 @@
         <constraint name="es:validPMs" type="LIST">
             <parameter name="allowedValues">
                 <list>
-                    <value>NATO UNCLASSIFIED</value>
-                    <value>NATO RESTRICTED</value>
-                    <value>NATO CONFIDENTIAL</value>
-                    <value>CONFIDENTIAL</value>
-                    <value>NATO SECRET</value>
-                    <value>COSMIC TOP SECRET</value>
+                    <value>LEVEL1</value>
+                    <value>LEVEL2</value>
+                    <value>LEVEL3</value>
+                    <value>LEVEL4</value>
+                    <value>LEVEL5</value>
+                    <value>LEVEL6</value>
                 </list>
             </parameter>
             <parameter name="caseSensitive"><value>true</value></parameter>
@@ -126,22 +126,7 @@
                 <list>
                     <value></value>
                     <value>UK EYES ONLY</value>
-                    <value>AUS/UK EYES ONLY</value>
-                    <value>CAN/UK EYES ONLY</value>
-                    <value>FRA/UK EYES ONLY</value>
-                    <value>US/UK EYES ONLY</value>
-                    <value>AUS/CAN/UK EYES ONLY</value>
-                    <value>AUS/FRA/UK EYES ONLY</value>
-                    <value>AUS/US/UK EYES ONLY</value>
-                    <value>CAN/FRA/UK EYES ONLY</value>
-                    <value>CAN/UK/US EYES ONLY</value>
-                    <value>FRA/UK/US EYES ONLY</value>
-                    <value>AUS/CAN/UK EYES ONLY</value>
-                    <value>CAN/FRA/UK/US EYES ONLY</value>
-                    <value>AUS/FRA/UK/US EYES ONLY</value>
-                    <value>AUS/CAN/UK/US EYES ONLY</value>
-                    <value>AUS/CAN/FRA/UK EYES ONLY</value>
-                    <value>AUS/CAN/FRA/UK/US EYES ONLY</value>
+                    <value>AB/CD/EF/GH/UK EYES ONLY</value>
                 </list>
             </parameter>
             <parameter name="caseSensitive"><value>true</value></parameter>
