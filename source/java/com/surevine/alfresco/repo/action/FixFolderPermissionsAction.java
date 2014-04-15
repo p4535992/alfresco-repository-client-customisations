@@ -12,6 +12,11 @@ import org.alfresco.service.cmr.security.PermissionService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * Action to fix folders with explicit delete permissions by clearing the delete permission from the folder and
+ * @author simonw
+ *
+ */
 public class FixFolderPermissionsAction extends ActionExecuterAbstractBase {
 
 	private static final Log LOGGER = LogFactory.getLog(FixFolderPermissionsAction.class);
@@ -31,17 +36,17 @@ public class FixFolderPermissionsAction extends ActionExecuterAbstractBase {
 	@Override
 	protected synchronized void executeImpl(final Action action, final NodeRef nodeRef) {
 
-		if (nodeRef != null && _nodeService.exists(nodeRef)) {
+		if (nodeRef != null && _nodeService.exists(nodeRef)) { //Only operate on nodes that exist
 			final boolean isFolder = _nodeService.getType(nodeRef).equals(ContentModel.TYPE_FOLDER);
 
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug(String.format("Is %s a folder?  %b", nodeRef, isFolder));
 			}
-			if (isFolder) {
+			if (isFolder) { //Only operate on folders
 				if (LOGGER.isTraceEnabled()) {
 					LOGGER.trace(String.format("Clearing delete permissions of %s", nodeRef));
 				}
-				_permissionService.clearPermission(nodeRef, PermissionService.DELETE);
+				_permissionService.clearPermission(nodeRef, PermissionService.DELETE); //Remove the delete permission
 				if (LOGGER.isInfoEnabled()) {
 					LOGGER.info(String.format("Cleared delete permissions of %s", nodeRef));
 				}
