@@ -145,6 +145,15 @@
         </property>
     </bean>
     
+    <bean id="com.surevine.alfresco.repo.action.FixFolderPermissionsAction" class="com.surevine.alfresco.repo.action.FixFolderPermissionsAction" parent="action-executer">
+        <property name="permissionService">
+            <ref bean="permissionService" />
+        </property>
+        <property name="nodeService">
+            <ref bean="nodeService" />
+        </property>
+    </bean>
+    
     <bean id="com.surevine.alfresco.repo.action.DeletePermissionsBehaviour" class="com.surevine.alfresco.repo.action.DeletePermissionsBehaviour" init-method="init">
         <property name="nodeService">
             <ref bean="nodeService" />
