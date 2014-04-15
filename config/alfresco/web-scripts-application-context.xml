@@ -1142,6 +1142,20 @@
         </property>
     </bean>
     
+    <bean id="webscript.com.surevine.alfresco.webscript.mis.ListFoldersWithExplicitDeletePermissionsWebscript.get" 
+        class="com.surevine.alfresco.webscript.mis.ListFoldersWithExplicitDeletePermissionsWebscript"
+        parent="webscript">
+        <property name="nodeService">
+            <ref bean="nodeService"/>
+        </property>
+        <property name="siteService">
+            <ref bean="siteService"/>
+        </property>
+        <property name="actionService">
+        	<ref bean="actionService"/>
+        </property>
+    </bean>
+    
     <bean id="webscript.com.surevine.webscript.cluster.WaitAndRespond.get" 
         class="com.surevine.alfresco.webscript.cluster.WaitAndRespondWebscript"
         parent="webscript">
