@@ -153,7 +153,7 @@ public class ListFoldersWithExplicitDeletePermissionsWebscript  extends Abstract
 		if (trace) {
 			LOG.trace("Does "+node+" have delete permissions?");
 		}
-		Iterator<AccessPermission> permissions = _permissionService.getPermissions(node).iterator();
+		Iterator<AccessPermission> permissions = _permissionService.getAllSetPermissions(node).iterator();
 		while (permissions.hasNext()) {
 			AccessPermission permission = permissions.next();
 			if (trace) {
