@@ -1142,7 +1142,7 @@
         </property>
     </bean>
     
-    <bean id="webscript.com.surevine.alfresco.webscript.mis.ListFoldersWithExplicitDeletePermissionsWebscript.get" 
+    <bean id="webscript.com.surevine.webscript.mis.ListFoldersWithExplicitDeletePermissionsWebscript.get" 
         class="com.surevine.alfresco.webscript.mis.ListFoldersWithExplicitDeletePermissionsWebscript"
         parent="webscript">
         <property name="nodeService">
