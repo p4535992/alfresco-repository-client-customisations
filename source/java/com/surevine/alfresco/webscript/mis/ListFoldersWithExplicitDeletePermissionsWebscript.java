@@ -143,9 +143,16 @@ public class ListFoldersWithExplicitDeletePermissionsWebscript  extends Abstract
 	}
 	
 	protected boolean hasDeletePermission(NodeRef node) {
+		final boolean trace = LOG.isTraceEnabled();
+		if (trace) {
+			LOG.trace("Does "+node+" have delete permissions?");
+		}
 		Iterator<AccessPermission> permissions = _permissionService.getPermissions(node).iterator();
 		while (permissions.hasNext()) {
 			AccessPermission permission = permissions.next();
+			if (trace) {
+				LOG.trace(String.format("NODE: %s | DIRECT: %s | PERM: %s | ACCESS: %s", node, permission.isSetDirectly(), permission.getPermission(), permission.getAccessStatus()));
+			}
 			if (permission.isSetDirectly() && permission.getPermission().equals(PermissionService.DELETE) && permission.getAccessStatus().equals(AccessStatus.ALLOWED)) {
 				return true;
 			}
