@@ -124,11 +124,17 @@ public class ListFoldersWithExplicitDeletePermissionsWebscript  extends Abstract
 			final QName childType = _nodeService.getType(childNode);
 			
 			
-			if (childType.equals(ContentModel.TYPE_FOLDER) && hasDeletePermission(childNode) ) {
-				
-				results.add(childNode);
-				if (LOG.isInfoEnabled()) {
-					LOG.info("Found a folder with explicit delete permissions: "+childNode);
+			if (childType.equals(ContentModel.TYPE_FOLDER)) {
+				if (hasDeletePermission(childNode)) {
+					if (LOG.isInfoEnabled()) {
+						LOG.info("Found a folder with explicit delete permissions : "+childNode);
+					}
+					results.add(childNode);
+				}
+				else {
+					if (LOG.isInfoEnabled()) {
+						LOG.info("Found a folder without explicit delete permissions : "+childNode);
+					}
 				}
 				if (operate) {
 					operateOn(childNode);
