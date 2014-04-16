@@ -1154,6 +1154,9 @@
         <property name="actionService">
         	<ref bean="actionService"/>
         </property>
+        <property name="permissionService">
+        	<ref bean="permissionService"/>
+        </property>
     </bean>
     
     <bean id="webscript.com.surevine.webscript.cluster.WaitAndRespond.get" 

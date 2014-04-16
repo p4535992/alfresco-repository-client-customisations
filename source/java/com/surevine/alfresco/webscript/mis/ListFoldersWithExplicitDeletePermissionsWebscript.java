@@ -24,6 +24,7 @@ package com.surevine.alfresco.webscript.mis;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.alfresco.model.ContentModel;
@@ -34,6 +35,9 @@ import org.alfresco.service.cmr.action.ActionService;
 import org.alfresco.service.cmr.repository.ChildAssociationRef;
 import org.alfresco.service.cmr.repository.NodeRef;
 import org.alfresco.service.cmr.repository.NodeService;
+import org.alfresco.service.cmr.security.AccessPermission;
+import org.alfresco.service.cmr.security.AccessStatus;
+import org.alfresco.service.cmr.security.PermissionService;
 import org.alfresco.service.cmr.site.SiteInfo;
 import org.alfresco.service.cmr.site.SiteService;
 import org.alfresco.service.namespace.QName;
@@ -50,6 +54,8 @@ public class ListFoldersWithExplicitDeletePermissionsWebscript  extends Abstract
 	private NodeService _nodeService; 
 	private SiteService _siteService; 
 	private ActionService _actionService;
+	private PermissionService _permissionService;
+
 	
 	public void setNodeService(final NodeService nodeService) {
 		_nodeService = nodeService;
@@ -61,6 +67,10 @@ public class ListFoldersWithExplicitDeletePermissionsWebscript  extends Abstract
 	
 	public void setActionService(final ActionService actionService) {
 		_actionService=actionService;
+	}
+	
+	public void setPermissionService(final PermissionService permissionService) {
+		_permissionService=permissionService;
 	}
 	
 	@Override
@@ -110,24 +120,37 @@ public class ListFoldersWithExplicitDeletePermissionsWebscript  extends Abstract
 		final List<NodeRef> results = new ArrayList<NodeRef>(1000);
 		
 		for (final ChildAssociationRef child : children) {
-			final QName childType = _nodeService.getType(child.getChildRef());
+			final NodeRef childNode = child.getChildRef();
+			final QName childType = _nodeService.getType(childNode);
 			
-			if (childType.equals(ContentModel.TYPE_FOLDER)) {
-				NodeRef childRef = child.getChildRef();
-				results.add(childRef);
-				if (operate) {
-					if (LOG.isInfoEnabled()) {
-						LOG.info("Found a folder: "+childRef);
-					}
-					operateOn(childRef);
+			
+			if (childType.equals(ContentModel.TYPE_FOLDER) && hasDeletePermission(childNode) ) {
+				
+				results.add(childNode);
+				if (LOG.isInfoEnabled()) {
+					LOG.info("Found a folder with explicit delete permissions: "+childNode);
 				}
-				final List<ChildAssociationRef> childNodes = _nodeService.getChildAssocs(childRef);
+				if (operate) {
+					operateOn(childNode);
+				}
+				final List<ChildAssociationRef> childNodes = _nodeService.getChildAssocs(childNode);
 				if (childNodes.size() > 0) {
 					results.addAll(recurseChildFolders(childNodes, operate));
 				}
 			}
 		}
 		return results;
+	}
+	
+	protected boolean hasDeletePermission(NodeRef node) {
+		Iterator<AccessPermission> permissions = _permissionService.getPermissions(node).iterator();
+		while (permissions.hasNext()) {
+			AccessPermission permission = permissions.next();
+			if (permission.isSetDirectly() && permission.getPermission().equals(PermissionService.DELETE) && permission.getAccessStatus().equals(AccessStatus.ALLOWED)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	protected void operateOn(NodeRef nodeRef) {

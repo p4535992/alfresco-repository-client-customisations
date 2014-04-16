@@ -74,7 +74,7 @@ public class FixFolderPermissionsAction extends ActionExecuterAbstractBase {
 				if (LOGGER.isTraceEnabled()) {
 					LOGGER.trace(String.format("Clearing delete permissions of %s", nodeRef));
 				}
-				_permissionService.clearPermission(nodeRef, PermissionService.DELETE); //Remove the delete permission
+				_permissionService.setPermission(nodeRef, "GROUP_EVERYONE", PermissionService.DELETE, false); //Remove the delete permission
 				if (LOGGER.isInfoEnabled()) {
 					LOGGER.info(String.format("Cleared delete permissions of %s", nodeRef));
 				}
