@@ -63,6 +63,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
+			<version>3.0.0.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
@@ -94,6 +95,7 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<scope>provided</scope>
+			<version>1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>rhino</groupId>
@@ -104,6 +106,7 @@
 		<dependency>
 			<groupId>org.springframework.extensions.surf</groupId>
 			<artifactId>spring-surf-core</artifactId>
+			<version>1.0.0.CI-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -118,10 +121,12 @@
 		<dependency>
 			<groupId>acegisecurity</groupId>
 			<artifactId>acegi-security</artifactId>
+			<version>0.8.2_patched</version>
 		</dependency>
 		<dependency>
 			<groupId>org.htmlparser</groupId>
 			<artifactId>htmlparser</artifactId>
+			<version>1.6</version>
 		</dependency>
 		<dependency>
 			<groupId>com.surevine.alfresco</groupId>
@@ -131,47 +136,55 @@
 		<dependency>
 			<groupId>org.alfresco</groupId>
 			<artifactId>dod-5015-classes</artifactId>
-			<version>3.4.7</version>
+			<version>${alfresco.sdk.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.alfresco.enterprise</groupId>
 			<artifactId>alfresco-core</artifactId>
 			<scope>compile</scope>
+			<version>${alfresco.sdk.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.alfresco.enterprise</groupId>
 			<artifactId>alfresco-data-model</artifactId>
 			<scope>compile</scope>
+			<version>${alfresco.sdk.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.alfresco.enterprise</groupId>
 			<artifactId>alfresco-deployment</artifactId>
 			<scope>compile</scope>
+			<version>${alfresco.sdk.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.alfresco.enterprise</groupId>
 			<artifactId>alfresco-jlan-embed</artifactId>
 			<scope>compile</scope>
+			<version>${alfresco.sdk.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.alfresco.enterprise</groupId>
 			<artifactId>alfresco-remote-api</artifactId>
 			<scope>compile</scope>
+			<version>${alfresco.sdk.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.alfresco.enterprise</groupId>
 			<artifactId>alfresco-repository</artifactId>
 			<scope>compile</scope>
+			<version>${alfresco.sdk.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.alfresco.enterprise</groupId>
 			<artifactId>alfresco-web-client</artifactId>
 			<scope>compile</scope>
+			<version>${alfresco.sdk.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>
 			<scope>test</scope>
+			<version>2.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.surevine.alfresco</groupId>
@@ -207,6 +220,7 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>compile</scope>
+			<version>4.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -237,7 +251,7 @@
 		<dependency>
 			<groupId>com.ibatis</groupId>
 			<artifactId>ibatis</artifactId>
-			<version>2.3.4.726-patched</version>
+			<version>2.${alfresco.sdk.version}26-patched</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
